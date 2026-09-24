@@ -246,20 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // 8. FORMULÁRIOS RÁPIDOS (HERO E NEWSLETTER)
+  // 8. FORMULÁRIO DE NEWSLETTER
   // -------------------------------------------------------------------------
-  const heroQuickForm = document.getElementById('heroQuickForm');
-  if (heroQuickForm) {
-    heroQuickForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const input = heroQuickForm.querySelector('input');
-      if (input && input.value.trim()) {
-        alert(`Obrigado pelo contato! Retornaremos para ${input.value} em instantes.`);
-        input.value = '';
-      }
-    });
-  }
-
   const newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
@@ -309,4 +297,37 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // -------------------------------------------------------------------------
+  // Alternador de Modo Escuro / Claro (Dark Mode Switch)
+  // -------------------------------------------------------------------------
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    // Sincroniza estado inicial do botão com a classe ativa no <html> ou <body>
+    const isInitiallyDark = document.documentElement.classList.contains('dark-mode') || 
+                            document.body.classList.contains('dark-mode');
+    
+    if (isInitiallyDark) {
+      document.documentElement.classList.add('dark-mode');
+      document.body.classList.add('dark-mode');
+      themeToggleBtn.setAttribute('aria-checked', 'true');
+    } else {
+      themeToggleBtn.setAttribute('aria-checked', 'false');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark-mode');
+      document.body.classList.toggle('dark-mode', isDark);
+      themeToggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+      
+      try {
+        localStorage.setItem('adp_theme', isDark ? 'dark' : 'light');
+      } catch (e) {
+        // Fallback para ambientes com restrição de cookies/localStorage
+      }
+    });
+  }
 });
+
+
+
