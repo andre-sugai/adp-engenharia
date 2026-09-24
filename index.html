@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADP Engenharia | Construindo com Excelência</title>
+  <meta name="description" content="ADP Engenharia: Soluções completas em engenharia civil, infraestrutura e construções de alto padrão com tecnologia de ponta e cumprimento rigoroso de prazos.">
+  
+  <!-- Fontes do Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos Customizados -->
+  <link rel="stylesheet" href="css/styles.css?v=2.1">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F5B700'><path d='M12 2L2 7v14h20V7L12 2zm0 2.84L18.4 8H5.6L12 4.84zM4 19V9.55l8-4 8 4V19H4zm7-8h2v2h-2zm0 4h2v2h-2z'/></svg>">
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. TOP INFO BAR
+       ======================================================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <ul class="top-info-list">
+        <li class="top-info-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span>Av. Paulista, 1500 - Bela Vista, São Paulo - SP</span>
+        </li>
+        <li class="top-info-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>contato@adpengenharia.com.br</span>
+        </li>
+        <li class="top-info-item">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <span>Seg - Sex: 07h30 às 18h30</span>
+        </li>
+      </ul>
+      <div class="top-actions">
+        <button class="top-quote-btn btn-open-quote-modal" type="button">
+          <span>Solicitar Orçamento</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2.44z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. NAVBAR PRINCIPAL
+       ======================================================================== -->
+  <header class="main-header">
+    <div class="container">
+      <a href="#inicio" class="logo" aria-label="ADP Engenharia Página Inicial">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 4H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 14H7v-4h4v4zm0-6H7V8h4v4zm6 6h-4v-4h4v4zm0-6h-4V8h4v4z"/>
+          </svg>
+        </div>
+        <div class="logo-text">ADP<span>.</span> ENGENHARIA</div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#inicio" class="nav-link active">Início</a>
+        <a href="#servicos" class="nav-link">Serviços</a>
+        <a href="#sobre" class="nav-link">Sobre Nós</a>
+        <a href="#processo" class="nav-link">Processo</a>
+        <a href="#projetos" class="nav-link">Projetos</a>
+        <a href="#blog" class="nav-link">Notícias</a>
+        <a href="#contato" class="nav-link">Contato</a>
+      </nav>
+
+      <div class="header-right-actions">
+        <button class="btn-icon-search btn-open-quote-modal" aria-label="Pesquisar ou Contatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="btn btn-dark btn-open-quote-modal" style="padding: 10px 18px; font-size: 0.85rem;">Fale Conosco</button>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir Menu Mobile" aria-expanded="false">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================================
+         3. HERO SECTION (FOTO COMPLETA COM WATERMARK ADP ENGENHARIA)
+         ======================================================================== -->
+    <section class="hero-section" id="inicio">
+      <div class="hero-bg-wrapper">
+        <img class="hero-bg-image" 
+             src="assets/hero_construction.jpg" 
+             alt="Canteiro de obras de grande porte com pilares de concreto e guindastes sob o céu azul" 
+             fetchpriority="high">
+        <div class="hero-overlay"></div>
+      </div>
+
+      <!-- Letreiro Gigante Animado em Loop Contínuo no Rodapé da Foto -->
+      <div class="hero-giant-watermark" aria-label="ADP Engenharia Construindo Excelência em Cada Projeto">
+        <div class="hero-watermark-track">
+          <div class="hero-watermark-content">
+            <span>ADP ENGENHARIA</span>
+            <span class="watermark-sep">•</span>
+            <span>CONSTRUINDO EXCELÊNCIA EM CADA PROJETO</span>
+            <span class="watermark-sep">•</span>
+            <span>ADP ENGENHARIA</span>
+            <span class="watermark-sep">•</span>
+            <span>CONSTRUINDO EXCELÊNCIA EM CADA PROJETO</span>
+            <span class="watermark-sep">•</span>
+          </div>
+          <div class="hero-watermark-content" aria-hidden="true">
+            <span>ADP ENGENHARIA</span>
+            <span class="watermark-sep">•</span>
+            <span>CONSTRUINDO EXCELÊNCIA EM CADA PROJETO</span>
+            <span class="watermark-sep">•</span>
+            <span>ADP ENGENHARIA</span>
+            <span class="watermark-sep">•</span>
+            <span>CONSTRUINDO EXCELÊNCIA EM CADA PROJETO</span>
+            <span class="watermark-sep">•</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         BANNER AMARELO (BLOCO INDEPENDENTE ABAIXO DO HEADER / HERO)
+         ======================================================================== -->
+    <section class="hero-yellow-banner-section">
+      <div class="hero-yellow-card">
+        <div class="container hero-yellow-card-inner">
+          <div class="hero-yellow-left">
+            <span class="section-badge">Construção & Engenharia Civil</span>
+            <h1 class="hero-yellow-title">Construindo Excelência em Cada Projeto</h1>
+          </div>
+          
+          <div class="hero-yellow-center">
+            <p>Somos referência em engenharia de alta complexidade, gerando valor com solidez estrutural, inovação tecnológica e absoluto rigor nos prazos e orçamentos.</p>
+          </div>
+
+          <div class="hero-yellow-right">
+            <div class="hero-thumb-box">
+              <img class="hero-thumb-img" 
+                   src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&auto=format&fit=crop&q=80" 
+                   alt="Edifício Corporativo Moderno">
+            </div>
+            <form class="hero-quick-form" id="heroQuickForm">
+              <input type="text" class="hero-quick-input" placeholder="Seu WhatsApp ou E-mail" required aria-label="Seu WhatsApp ou E-mail">
+              <button type="submit" class="hero-quick-btn" aria-label="Enviar Contato Rápido">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2.44z"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         4. SEÇÃO "O QUE CONSTRUÍMOS, CONSTRUÍMOS COM EXCELÊNCIA" (ABAS)
+         ======================================================================== -->
+    <section class="services-section section-padding" id="servicos">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-badge">Nossos Serviços</span>
+          <h2 class="section-title">O Que Construímos, Construímos com Excelência</h2>
+          <p class="section-desc">Soluções integradas de engenharia civil que aliam inovação tecnológica, materiais de primeira linha e um padrão inegociável de acabamento.</p>
+        </div>
+
+        <!-- Navegação das Abas -->
+        <div class="service-tabs-nav" role="tablist">
+          <button class="tab-btn active" data-tab="tab-residential" role="tab" aria-selected="true">Construção Residencial</button>
+          <button class="tab-btn" data-tab="tab-commercial" role="tab" aria-selected="false">Engenharia Comercial</button>
+          <button class="tab-btn" data-tab="tab-industrial" role="tab" aria-selected="false">Reformas Industriais</button>
+        </div>
+
+        <!-- Conteúdo Aba 1: Residencial -->
+        <div class="tab-pane active" id="tab-residential" role="tabpanel">
+          <div class="service-tab-image-wrapper">
+            <img class="service-tab-img" 
+                 src="assets/residential_engineer.jpg" 
+                 alt="Engenheiro com capacete amarelo examinando plantas de residência">
+          </div>
+          <div class="service-tab-content">
+            <h3 class="service-tab-title">Precisão em Cada Detalhe na Construção Residencial</h3>
+            <p class="service-tab-desc">Do projeto arquitetônico à entrega das chaves, transformamos plantas em lares duradouros com conforto térmico, eficiência energética e acabamento de alto padrão construtivo.</p>
+            
+            <div class="service-checklist">
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Gestão Integral de Obras</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Estruturas em Concreto Armado</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Automação & Sustentabilidade</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Entrega Pontual Garantida</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-open-quote-modal">
+              <span>Saiba Mais</span>
+              <span class="btn-arrow">➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Conteúdo Aba 2: Comercial -->
+        <div class="tab-pane" id="tab-commercial" role="tabpanel">
+          <div class="service-tab-image-wrapper">
+            <img class="service-tab-img" 
+                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" 
+                 alt="Edifício corporativo de vidro com design arrojado">
+          </div>
+          <div class="service-tab-content">
+            <h3 class="service-tab-title">Engenharia de Alta Performance para Negócios</h3>
+            <p class="service-tab-desc">Edifícios corporativos, shoppings e centros empresariais desenvolvidos com foco em circulação inteligente, certificações LEED e valorização imobiliária sustentável.</p>
+            
+            <div class="service-checklist">
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Modelagem BIM Avançada</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Fachadas Ventiladas & Glazing</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Instalações Elétricas e HVAC</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Controle Rigoroso de Custos</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-open-quote-modal">
+              <span>Saiba Mais</span>
+              <span class="btn-arrow">➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Conteúdo Aba 3: Industrial -->
+        <div class="tab-pane" id="tab-industrial" role="tabpanel">
+          <div class="service-tab-image-wrapper">
+            <img class="service-tab-img" 
+                 src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=800&auto=format&fit=crop&q=80" 
+                 alt="Galpão logístico e industrial com estrutura metálica pesada">
+          </div>
+          <div class="service-tab-content">
+            <h3 class="service-tab-title">Infraestrutura Industrial & Galpões Logísticos</h3>
+            <p class="service-tab-desc">Galpões de grande vão livre, pisos de alta resistência mecânica e plantas fabris projetadas para máxima eficiência logística e segurança operacional.</p>
+            
+            <div class="service-checklist">
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Estruturas Metálicas & Pré-Moldados</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Pisos Industriais Nivelados a Laser</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Sistemas de Combate a Incêndio</span>
+              </div>
+              <div class="checklist-item">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span>Conformidade com Normas ABNT</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-open-quote-modal">
+              <span>Saiba Mais</span>
+              <span class="btn-arrow">➔</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         5. SEÇÃO "CONSTRUINDO MAIS DO QUE ESTRUTURAS..." (SOBRE NÓS)
+         ======================================================================== -->
+    <section class="about-split-section" id="sobre">
+      <div class="container">
+        <div class="about-split-grid">
+          <div class="about-split-left">
+            <span class="section-badge badge-yellow">Sobre a ADP Engenharia</span>
+            <h2 class="section-title title-white">Construindo Mais do que Estruturas — <span>Criamos Confiança que Atravessa Gerações.</span></h2>
+            
+            <div class="about-features-container">
+              <div class="about-feature-box">
+                <h4>Experiência Consolidada</h4>
+                <p>Mais de 25 anos entregando obras icônicas com padrões internacionais de engenharia, governança transparente e controle rigoroso de qualidade em cada metro quadrado.</p>
+              </div>
+
+              <div class="about-feature-box">
+                <h4>Compromisso & Pontualidade</h4>
+                <p>Cada empreendimento é gerenciado em tempo real com modelagem BIM 4D, eliminando custos extras e assegurando a entrega antes da data estipulada em contrato.</p>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-open-quote-modal">
+              <span>Conheça Nossa História</span>
+              <span class="btn-arrow">➔</span>
+            </button>
+          </div>
+
+          <div class="about-split-right">
+            <div class="about-crane-img-wrapper">
+              <img class="about-crane-img" 
+                   src="assets/sunset_cranes.jpg" 
+                   alt="Guindaste imponente sobre skyline urbano ao entardecer">
+              <div class="about-experience-stamp">
+                <div class="stamp-number">25+</div>
+                <div class="stamp-text">Anos de Liderança</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         6. SEÇÃO "RECONHECIDOS" (3 CARDS + BARRA DE MÉTRICAS AMARELA)
+         ======================================================================== -->
+    <section class="recognized-section">
+      <div class="recognized-watermark">Residencial • Comercial • Industrial</div>
+      
+      <!-- Gancho de Guindaste Ilustrativo da Referência -->
+      <div class="crane-hook-graphic">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 13h-2V4h-2v9H9V4H7v9c0 2.21 1.79 4 4 4v3h2v-3c2.21 0 4-1.79 4-4zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <div class="recognized-cards-grid">
+          <!-- Card 1 -->
+          <div class="recognized-card">
+            <div class="recognized-card-img-wrapper">
+              <img class="recognized-card-img" 
+                   src="https://images.unsplash.com/photo-1577495508048-b635879837f1?w=600&auto=format&fit=crop&q=80" 
+                   alt="Aperto de mãos simbolizando alianças comerciais e planejamento">
+              <div class="recognized-card-btn-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              </div>
+            </div>
+            <div class="recognized-card-body">
+              <h3 class="recognized-card-title">Planejamento Estratégico</h3>
+              <p class="recognized-card-text">Estudos detalhados de solo, impacto ambiental e orçamento transparente para viabilizar projetos com segurança jurídica e financeira.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="recognized-card">
+            <div class="recognized-card-img-wrapper">
+              <img class="recognized-card-img" 
+                   src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80" 
+                   alt="Engenheiros trabalhando em bancada de projetos arquitetônicos">
+              <div class="recognized-card-btn-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              </div>
+            </div>
+            <div class="recognized-card-body">
+              <h3 class="recognized-card-title">Engenharia de Precisão</h3>
+              <p class="recognized-card-text">Integração total via Building Information Modeling (BIM) para compatibilização estrutural, hidráulica e elétrica sem retrabalhos.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="recognized-card">
+            <div class="recognized-card-img-wrapper">
+              <img class="recognized-card-img" 
+                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop&q=80" 
+                   alt="Mestre de obras e operário em canteiro de obras moderno">
+              <div class="recognized-card-btn-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              </div>
+            </div>
+            <div class="recognized-card-body">
+              <h3 class="recognized-card-title">Execução & Acabamento</h3>
+              <p class="recognized-card-text">Supervisão técnica diária, mão de obra altamente qualificada e respeito intransigente às normas regulamentadoras de segurança.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra Amarela de Métricas Fixada -->
+      <div class="metrics-banner-yellow">
+        <div class="container">
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">450+</div>
+                <div class="metric-label">Obras Concluídas</div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">180+</div>
+                <div class="metric-label">Engenheiros & Técnicos</div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">25+</div>
+                <div class="metric-label">Prêmios do Setor</div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">100%</div>
+                <div class="metric-label">Atuação Nacional</div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">Zero</div>
+                <div class="metric-label">Acidentes de Trabalho</div>
+              </div>
+            </div>
+
+            <div class="metric-item">
+              <div class="metric-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              </div>
+              <div>
+                <div class="metric-number">99.8%</div>
+                <div class="metric-label">Pontualidade em Obras</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         7. BANNER PANORÂMICO EM VÍDEO (TIMELAPSE DE OBRA COM OPERÁRIOS E MÁQUINAS)
+         ======================================================================== -->
+    <div class="panoramic-site-banner" id="obra-timelapse" aria-label="Vídeo timelapse de canteiro de obras em pleno andamento">
+      <video class="panoramic-video"
+             autoplay 
+             muted 
+             loop 
+             playsinline 
+             poster="assets/timelapse_poster.jpg"
+             preload="auto">
+        <source src="assets/timelapse_construction_web.mp4" type="video/mp4">
+        <source src="assets/construction_timelapse.mp4" type="video/mp4">
+        <!-- Fallback de imagem caso o navegador desabilite reprodução de vídeo -->
+        <img class="panoramic-img" 
+             src="assets/timelapse_poster.jpg" 
+             alt="Canteiro de obras da ADP Engenharia em pleno andamento com operários e máquinas">
+      </video>
+      <div class="panoramic-overlay"></div>
+      
+      <div class="panoramic-badge-overlay">
+        <span class="badge-live-pulse"></span>
+        <span>Canteiro em Operação • Timelapse da Obra</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         8. SEÇÃO "PROCESSO PASSO A PASSO" (ACORDEÃO INTERATIVO)
+         ======================================================================== -->
+    <section class="process-section" id="processo">
+      <div class="container">
+        <div class="process-grid">
+          <div class="process-image-box">
+            <img class="process-img" 
+                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&auto=format&fit=crop&q=80" 
+                 alt="Mãos de engenheiros apontando para projeto arquitetônico na mesa com capacete amarelo">
+          </div>
+
+          <div class="process-content-col">
+            <span class="section-badge">Como Trabalhamos</span>
+            <h2 class="section-title">Nosso Processo Passo a Passo</h2>
+            <p class="section-desc">Uma metodologia ágil, auditável e comprovada que elimina imprevistos e garante máxima qualidade técnica em cada etapa construtiva.</p>
+
+            <div class="accordion-list">
+              <!-- Item 1 (Ativo) -->
+              <div class="accordion-item active">
+                <div class="accordion-header">
+                  <div class="accordion-title">
+                    <span>1. Planejamento & Estudo de Viabilidade</span>
+                  </div>
+                  <div class="accordion-indicator">+</div>
+                </div>
+                <div class="accordion-body">
+                  <p class="accordion-text">Antes de mover o primeiro metro cúbico de terra, realizamos análises minuciosas do solo, levantamento topográfico e viabilidade legal para garantir que seu investimento comece com base 100% sólida.</p>
+                  <div class="accordion-points">
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Sondagem de solo SPT e ensaios geotécnicos</span>
+                    </div>
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Aprovações e alvarás junto aos órgãos públicos</span>
+                    </div>
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Cronograma físico-financeiro detalhado</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">
+                    <span>2. Projeto Executivo & Modelagem BIM</span>
+                  </div>
+                  <div class="accordion-indicator">+</div>
+                </div>
+                <div class="accordion-body">
+                  <p class="accordion-text">Criamos o gêmeo digital da edificação antes da execução em campo. Isso permite testar interferências de tubulações, fiações e vigas, eliminando retrabalhos dispendiosos.</p>
+                  <div class="accordion-points">
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Compatibilização multidisciplinar em tempo real</span>
+                    </div>
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Especificação técnica detalhada de insumos</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">
+                    <span>3. Execução & Gestão de Canteiro</span>
+                  </div>
+                  <div class="accordion-indicator">+</div>
+                </div>
+                <div class="accordion-body">
+                  <p class="accordion-text">Mobilização ágil com engenheiros residentes, diário de obra digital, controle rigoroso de qualidade do concreto e cumprimento irrestrito das normas de segurança NR-18.</p>
+                  <div class="accordion-points">
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Acompanhamento fotográfico e relatórios semanais</span>
+                    </div>
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Gestão inteligente de resíduos e limpeza da obra</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="accordion-item">
+                <div class="accordion-header">
+                  <div class="accordion-title">
+                    <span>4. Acabamento, Vistoria & Chaves na Mão</span>
+                  </div>
+                  <div class="accordion-indicator">+</div>
+                </div>
+                <div class="accordion-body">
+                  <p class="accordion-text">Testes rigorosos de todas as instalações hidráulicas, elétricas e de ar-condicionado. Entrega de manual do proprietário completo e termo de garantia de 5 anos.</p>
+                  <div class="accordion-points">
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Checklist de mais de 300 itens na vistoria final</span>
+                    </div>
+                    <div class="accordion-point-item">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      <span>Habite-se e documentação averbada no cartório</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         9. FAIXA CTA COM ÍCONE DE ESCAVADEIRA
+         ======================================================================== -->
+    <section class="excavator-cta-strip">
+      <div class="container">
+        <div class="excavator-cta-box">
+          <div class="excavator-content-left">
+            <svg class="excavator-icon-img" viewBox="0 0 64 48" fill="none" stroke="currentColor">
+              <path d="M12 36h30a6 6 0 0 1 6 6v2H6v-2a6 6 0 0 1 6-6z" fill="#F5B700" stroke="#111" stroke-width="2"/>
+              <circle cx="16" cy="42" r="4" fill="#111"/>
+              <circle cx="28" cy="42" r="4" fill="#111"/>
+              <circle cx="40" cy="42" r="4" fill="#111"/>
+              <path d="M14 36l4-16h16l4 16H14z" fill="#111"/>
+              <path d="M22 24h6v8h-6z" fill="#F5B700"/>
+              <path d="M38 20l12-14 8 6-12 14" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+              <path d="M58 12l6 8-4 4-6-6" fill="#F5B700" stroke="#111" stroke-width="2"/>
+            </svg>
+            <div class="excavator-text">Pronto para tirar seu projeto do papel? Fale com nossos engenheiros hoje mesmo.</div>
+          </div>
+          <button class="btn btn-primary btn-open-quote-modal">
+            <span>Solicitar Visita Técnica</span>
+            <span class="btn-arrow">➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         10. SEÇÃO "NOSSOS PROJETOS" (DARK CARROSSEL)
+         ======================================================================== -->
+    <section class="projects-section-dark" id="projetos">
+      <div class="container">
+        <div class="projects-layout-grid">
+          <div class="projects-info-col">
+            <span class="section-badge badge-yellow">Portfólio</span>
+            <h2 class="section-title">Nossos Projetos — Criando Marcos Que Inspiram</h2>
+            <p class="section-desc">Conheça algumas das obras que transformam paisagens urbanas e demonstram nossa capacidade de execução técnica com altíssimo padrão de acabamento.</p>
+            
+            <div class="projects-nav-arrows">
+              <button class="nav-arrow-btn" id="projectPrevBtn" aria-label="Projeto Anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+              </button>
+              <button class="nav-arrow-btn" id="projectNextBtn" aria-label="Próximo Projeto">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="projects-carousel-container">
+            <div class="projects-track" id="projectsTrack">
+              <!-- Projeto 1 (Fachada vermelha moderna igual à referência) -->
+              <div class="project-card">
+                <div class="project-card-image-box">
+                  <img class="project-card-img" 
+                       src="assets/red_building.jpg" 
+                       alt="Edifício Corporativo Vanguard com fachada arquitetônica geométrica vermelha">
+                  <div class="project-badge-action">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2.44z"/></svg>
+                  </div>
+                </div>
+                <div class="project-card-details">
+                  <span class="project-category">Comercial • São Paulo / SP</span>
+                  <h3 class="project-card-title">Edifício Corporativo Vanguard</h3>
+                  <p class="project-card-desc">Torre corporativa de 22 pavimentos com lajes corporativas integradas e certificação ambiental LEED Gold.</p>
+                </div>
+              </div>
+
+              <!-- Projeto 2 -->
+              <div class="project-card">
+                <div class="project-card-image-box">
+                  <img class="project-card-img" 
+                       src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop&q=80" 
+                       alt="Residencial Jardins Park com acabamento contemporâneo e áreas verdes">
+                  <div class="project-badge-action">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2.44z"/></svg>
+                  </div>
+                </div>
+                <div class="project-card-details">
+                  <span class="project-category">Residencial • Curitiba / PR</span>
+                  <h3 class="project-card-title">Residencial Alameda dos Ipês</h3>
+                  <p class="project-card-desc">Condomínio residencial horizontal sustentável com energia solar em 100% das áreas comuns.</p>
+                </div>
+              </div>
+
+              <!-- Projeto 3 -->
+              <div class="project-card">
+                <div class="project-card-image-box">
+                  <img class="project-card-img" 
+                       src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&auto=format&fit=crop&q=80" 
+                       alt="Centro Logístico e Industrial Metropolitano">
+                  <div class="project-badge-action">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2.44z"/></svg>
+                  </div>
+                </div>
+                <div class="project-card-details">
+                  <span class="project-category">Industrial • Campinas / SP</span>
+                  <h3 class="project-card-title">Complexo Logístico Delta</h3>
+                  <p class="project-card-desc">Área de 65.000 m² construída com piso nivelado a laser de 8 toneladas por m² e 40 docas automatizadas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ========================================================================
+         12. SEÇÃO "DEPOIMENTOS" (SPLIT BANNER AMARELO E BRANCO)
+         ======================================================================== -->
+    <section class="testimonials-section">
+      <div class="container">
+        <div class="testimonials-split-card">
+          <!-- Lado Amarelo -->
+          <div class="testimonial-yellow-side">
+            <div class="testimonial-yellow-content">
+              <span class="section-badge badge-white">Avaliações Reais</span>
+              <h2 class="section-title">Depoimentos</h2>
+              <p>A satisfação e a tranquilidade de quem confia na ADP Engenharia para erguer seus maiores investimentos patrimoniais e industriais.</p>
+              
+              <div class="testimonial-hazard-strip"></div>
+
+              <div class="testimonial-stars" aria-label="Avaliação 5 estrelas">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado Branco -->
+          <div class="testimonial-white-side">
+            <div class="testimonial-quote-icon">“</div>
+            
+            <div>
+              <div class="testimonial-author-row">
+                <img class="testimonial-avatar" id="testimonialAvatar" 
+                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" 
+                     alt="David Henderson">
+                <div>
+                  <h3 class="testimonial-author-name" id="testimonialAuthorName">David Henderson</h3>
+                  <div class="testimonial-author-role" id="testimonialAuthorRole">Diretor de Operações, Vertex Corp</div>
+                </div>
+              </div>
+
+              <blockquote class="testimonial-body-quote" id="testimonialQuoteBody">
+                "A ADP Engenharia superou todas as nossas expectativas. O rigor no cumprimento do cronograma, o cuidado com as normas de segurança e o acabamento impecável do nosso centro de distribuição foram incomparáveis. Entregaram a obra 15 dias antes do prazo com economia de 7% no custo orçado."
+              </blockquote>
+            </div>
+
+            <div class="testimonial-footer-row">
+              <div class="testimonial-dots">
+                <button class="dot-btn active" aria-label="Depoimento 1"></button>
+                <button class="dot-btn" aria-label="Depoimento 2"></button>
+                <button class="dot-btn" aria-label="Depoimento 3"></button>
+              </div>
+
+              <!-- Botão para o Perfil do Google do Cliente (Google Meu Negócio / Avaliações) -->
+              <!-- Quando tiver o link definitivo do perfil no Google, basta substituir href="#" pelo link direto -->
+              <a href="#" class="btn btn-primary" id="btnGoogleProfile" target="_blank" rel="noopener noreferrer" aria-label="Ver mais casos e avaliações no Perfil do Google">
+                <span>Ver Mais Casos</span>
+                <span class="btn-arrow">➔</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         13. SEÇÃO "NOTÍCIAS & ARTIGOS" (BLOG)
+         ======================================================================== -->
+    <section class="blog-section" id="blog">
+      <div class="container">
+        <div class="section-header-center">
+          <span class="section-badge">Blog & Insights</span>
+          <h2 class="section-title">Notícias & Tendências da Construção Civil</h2>
+          <p class="section-desc">Artigos técnicos, inovações sustentáveis e análises de mercado para manter você informado sobre o futuro da engenharia.</p>
+        </div>
+
+        <div class="blog-grid">
+          <!-- Post 1 -->
+          <article class="blog-card">
+            <div class="blog-image-wrapper">
+              <img class="blog-img" 
+                   src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop&q=80" 
+                   alt="Andaimes e reformas em estrutura predial">
+              <div class="blog-date-badge">
+                <div class="blog-date-day">15</div>
+                <div class="blog-date-month">Mai</div>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div>
+                <h3 class="blog-card-title">Como a Modelagem BIM Reduz Custos e Desperdício na Obra</h3>
+                <p class="blog-card-excerpt">Descubra como a integração de projetos em 3D e 4D consegue antecipar interferências e economizar até 20% no custo total de materiais.</p>
+              </div>
+              <div class="blog-link-row">
+                <a href="#blog" class="blog-read-more">
+                  <span>Ler Artigo</span>
+                  <div class="blog-arrow-badge">➔</div>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="blog-card">
+            <div class="blog-image-wrapper">
+              <img class="blog-img" 
+                   src="assets/sunset_cranes.jpg" 
+                   alt="Engenheiro inspecionando obra sustentável">
+              <div class="blog-date-badge">
+                <div class="blog-date-day">08</div>
+                <div class="blog-date-month">Mai</div>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div>
+                <h3 class="blog-card-title">Construção Sustentável: Práticas Essenciais para 2026</h3>
+                <p class="blog-card-excerpt">Certificações ambientais LEED, reuso de água pluvial e concreto de baixa pegada de carbono: o novo padrão dos empreendimentos modernos.</p>
+              </div>
+              <div class="blog-link-row">
+                <a href="#blog" class="blog-read-more">
+                  <span>Ler Artigo</span>
+                  <div class="blog-arrow-badge">➔</div>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="blog-card">
+            <div class="blog-image-wrapper">
+              <img class="blog-img" 
+                   src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&auto=format&fit=crop&q=80" 
+                   alt="Maquinário e procedimentos de segurança de trabalho">
+              <div class="blog-date-badge">
+                <div class="blog-date-day">28</div>
+                <div class="blog-date-month">Abr</div>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div>
+                <h3 class="blog-card-title">Segurança no Canteiro: Boas Práticas e Protocolos NR-18</h3>
+                <p class="blog-card-excerpt">Como manter índice zero de acidentes em obras pesadas através de treinamentos constantes, EPIs de ponta e cultura prevencionista.</p>
+              </div>
+              <div class="blog-link-row">
+                <a href="#blog" class="blog-read-more">
+                  <span>Ler Artigo</span>
+                  <div class="blog-arrow-badge">➔</div>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="blog-pagination-center">
+          <button class="nav-arrow-btn" aria-label="Página Anterior">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+          </button>
+          <button class="nav-arrow-btn" style="background-color: var(--color-primary); color: #000;" aria-label="Próxima Página">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         14. LOGOS DE PARCEIROS E FORNECEDORES
+         ======================================================================== -->
+    <section class="partners-bar-section">
+      <div class="container">
+        <div class="partners-logos-row">
+          <div class="partner-logo-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <span>VOTORANTIM</span>
+          </div>
+          <div class="partner-logo-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+            <span>GERDAU</span>
+          </div>
+          <div class="partner-logo-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span>TIGRE</span>
+          </div>
+          <div class="partner-logo-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.01-4.09l-2.45-1.43C16.29 17.82 14.28 19 12 19z"/></svg>
+            <span>SCHNEIDER</span>
+          </div>
+          <div class="partner-logo-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+            <span>BOSCH PRO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       15. RODAPÉ (FOOTER) COMPLETO
+       ======================================================================== -->
+  <footer class="main-footer" id="contato">
+    <div class="container">
+      <!-- 3 Caixas de Destaque no Topo do Footer -->
+      <div class="footer-top-info-boxes">
+        <div class="footer-info-card">
+          <div class="footer-info-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <div class="footer-info-label">Endereço da Sede</div>
+            <div class="footer-info-val">Av. Paulista, 1500 - São Paulo, SP</div>
+          </div>
+        </div>
+
+        <div class="footer-info-card">
+          <div class="footer-info-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div>
+            <div class="footer-info-label">Central Telefônica</div>
+            <div class="footer-info-val">(11) 3456-7890 / 99123-4567</div>
+          </div>
+        </div>
+
+        <div class="footer-info-card">
+          <div class="footer-info-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <div class="footer-info-label">E-mail Corporativo</div>
+            <div class="footer-info-val">contato@adpengenharia.com.br</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Colunas Principais do Rodapé -->
+      <div class="footer-main-columns">
+        <!-- Coluna 1: Sobre & Newsletter -->
+        <div>
+          <a href="#inicio" class="logo" style="margin-bottom: 16px;">
+            <div class="logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 14H7v-4h4v4zm0-6H7V8h4v4zm6 6h-4v-4h4v4zm0-6h-4V8h4v4z"/></svg>
+            </div>
+            <div class="logo-text">ADP<span>.</span> ENGENHARIA</div>
+          </a>
+          <p class="footer-company-desc">Construindo o futuro com solidez estrutural, sustentabilidade e inovação técnica de ponta desde 1999.</p>
+
+          <div class="footer-social-links">
+            <a href="#" class="social-icon-btn" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.3a1.63 1.63 0 1 0 1.63 1.63A1.63 1.63 0 0 0 7.86 6.3z"/></svg></a>
+            <a href="#" class="social-icon-btn" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="#" class="social-icon-btn" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Nossos Serviços -->
+        <div>
+          <h4 class="footer-col-title">Nossos Serviços</h4>
+          <ul class="footer-links-list">
+            <li><a href="#servicos">Construção Residencial</a></li>
+            <li><a href="#servicos">Engenharia Comercial</a></li>
+            <li><a href="#servicos">Galpões Industriais</a></li>
+            <li><a href="#servicos">Modelagem e Compatibilização BIM</a></li>
+            <li><a href="#servicos">Fundações & Estruturas</a></li>
+            <li><a href="#servicos">Reformas Corporativas</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Links Úteis -->
+        <div>
+          <h4 class="footer-col-title">Links Úteis</h4>
+          <ul class="footer-links-list">
+            <li><a href="#sobre">Quem Somos</a></li>
+            <li><a href="#projetos">Nosso Portfólio</a></li>
+            <li><a href="#processo">Metodologia Construtiva</a></li>
+            <li><a href="#blog">Notícias do Setor</a></li>
+            <li><a href="#" class="btn-open-quote-modal">Trabalhe Conosco</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 4: Atendimento & Horários -->
+        <div>
+          <h4 class="footer-col-title">Atendimento</h4>
+          <div class="footer-hours-box">
+            <div class="footer-hours-row">
+              <span>Segunda a Sexta:</span>
+              <strong>07:30 - 18:30</strong>
+            </div>
+            <div class="footer-hours-row">
+              <span>Sábados:</span>
+              <strong>08:00 - 13:00</strong>
+            </div>
+            <div class="footer-hours-row">
+              <span>Plantão Técnico:</span>
+              <strong style="color: var(--color-primary);">24 Horas / 7 Dias</strong>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-open-quote-modal" style="width: 100%;">
+            <span>Fale no WhatsApp</span>
+            <span class="btn-arrow">➔</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra Inferior de Direitos Autorais -->
+    <div class="footer-bottom-bar">
+      <div class="container">
+        <div class="footer-bottom-flex">
+          <p>© 2026 ADP Engenharia Ltda. CNPJ: 12.345.678/0001-90. Todos os direitos reservados. • Desenvolvido por <a href="https://orbee360.com.br" target="_blank" rel="noopener noreferrer" class="footer-dev-link">Orbee360</a></p>
+          <div class="footer-legal-links">
+            <a href="#">Termos de Uso</a>
+            <a href="#">Privacidade & LGPD</a>
+            <a href="#">Compliance</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       16. MODAL INTERATIVO PARA SOLICITAÇÃO DE ORÇAMENTO
+       ======================================================================== -->
+  <dialog class="quote-dialog" id="quoteModal">
+    <div class="quote-modal-header">
+      <h3>Solicitar Proposta Comercial</h3>
+      <button class="modal-close-btn" id="closeQuoteModal" aria-label="Fechar Modal">&times;</button>
+    </div>
+    <div class="quote-modal-body">
+      <form id="quoteForm">
+        <div class="form-row-grid">
+          <div class="form-group">
+            <label class="form-label" for="formName">Seu Nome Completo *</label>
+            <input type="text" id="formName" class="form-control" placeholder="Ex: Roberto Silva" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="formPhone">WhatsApp / Telefone *</label>
+            <input type="tel" id="formPhone" class="form-control" placeholder="(11) 99999-9999" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formEmail">E-mail Corporativo ou Pessoal *</label>
+          <input type="email" id="formEmail" class="form-control" placeholder="nome@exemplo.com.br" required>
+        </div>
+
+        <div class="form-row-grid">
+          <div class="form-group">
+            <label class="form-label" for="formType">Tipo de Obra</label>
+            <select id="formType" class="form-control">
+              <option value="residencial">Construção Residencial</option>
+              <option value="comercial">Edifício Comercial / Escritórios</option>
+              <option value="industrial">Galpão / Obra Industrial</option>
+              <option value="reforma">Reforma / Retrofit Geral</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="formArea">Área Estimada (m²)</label>
+            <input type="text" id="formArea" class="form-control" placeholder="Ex: 450 m²">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formMessage">Detalhes do Projeto / Localização</label>
+          <textarea id="formMessage" rows="3" class="form-control" placeholder="Conte-nos brevemente sobre sua ideia, terreno ou prazos desejados..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <span>Enviar Solicitação de Orçamento</span>
+          <span class="btn-arrow">➔</span>
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Botão de Voltar ao Topo (Scroll to Top) -->
+  <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Voltar ao topo da página">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Script Principal -->
+  <script src="js/main.js?v=2.1"></script>
+</body>
+</html>
