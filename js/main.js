@@ -331,3 +331,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Image Modal Logic for Recognized Cards
+  const imageModal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const prevBtn = document.querySelector('.prev-modal');
+  const nextBtn = document.querySelector('.next-modal');
+  const cardImgWrappers = document.querySelectorAll('.recognized-card-img-wrapper');
+  
+  let currentModalIndex = 0;
+  let modalImages = [];
+
+  if (imageModal && modalImage && closeModalBtn) {
+    // Store all images and set up click listeners
+    cardImgWrappers.forEach((wrapper, index) => {
+      const img = wrapper.querySelector('img');
+      if (img) {
+        modalImages.push({ src: img.src, alt: img.alt });
+        const openModal = () => {
+          currentModalIndex = index;
+          updateModalImage();
+          imageModal.classList.add('show');
+          imageModal.setAttribute('aria-hidden', 'false');
+        };
+        wrapper.addEventListener('click', openModal);
+        
+        const card = wrapper.closest('.recognized-card');
+        if (card) {
+          const badge = card.querySelector('.recognized-card-btn-badge');
+          if (badge) {
+            badge.style.cursor = 'pointer';
+            badge.addEventListener('click', openModal);
+          }
+        }
+      }
+    });
+
+    const updateModalImage = () => {
+      if (modalImages.length > 0) {
+        modalImage.src = modalImages[currentModalIndex].src;
+        modalImage.alt = modalImages[currentModalIndex].alt || 'Visualização Ampliada';
+      }
+    };
+
+    const showNextImage = (e) => {
+      if (e) e.stopPropagation();
+      currentModalIndex = (currentModalIndex + 1) % modalImages.length;
+      updateModalImage();
+    };
+
+    const showPrevImage = (e) => {
+      if (e) e.stopPropagation();
+      currentModalIndex = (currentModalIndex - 1 + modalImages.length) % modalImages.length;
+      updateModalImage();
+    };
+
+    if (nextBtn) nextBtn.addEventListener('click', showNextImage);
+    if (prevBtn) prevBtn.addEventListener('click', showPrevImage);
+
+    // Close function
+    const closeImageModal = () => {
+      imageModal.classList.remove('show');
+      imageModal.setAttribute('aria-hidden', 'true');
+      setTimeout(() => { modalImage.src = ''; }, 300);
+    };
+
+    closeModalBtn.addEventListener('click', closeImageModal);
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        closeImageModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!imageModal.classList.contains('show')) return;
+      if (e.key === 'Escape') closeImageModal();
+      if (e.key === 'ArrowRight') showNextImage();
+      if (e.key === 'ArrowLeft') showPrevImage();
+    });
+  }
+});
