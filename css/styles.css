@@ -744,7 +744,7 @@ body.dark-mode .track-moon,
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  padding: 14px 32px;
+  padding: 14px 24px;
   background-color: #F0F2F5;
   color: var(--color-dark);
   border: none;
@@ -1992,6 +1992,10 @@ body.dark-mode .track-moon,
   border-left: 4px solid var(--color-primary);
 }
 
+.footer-info-card > div {
+  min-width: 0;
+}
+
 .footer-info-icon {
   width: 48px;
   height: 48px;
@@ -2017,6 +2021,12 @@ body.dark-mode .track-moon,
   font-weight: 700;
   color: var(--color-white);
   line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.footer-info-val-email {
+  font-size: clamp(0.76rem, 1.05vw, 0.92rem);
+  word-break: break-word;
 }
 
 .footer-main-columns {
@@ -2149,9 +2159,19 @@ body.dark-mode .track-moon,
 .footer-hours-row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.88rem;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.84rem;
   padding: 6px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-hours-row strong {
+  text-align: right;
+}
+
+.footer-hours-row:first-child strong {
+  white-space: nowrap;
 }
 
 .footer-hours-row:last-child {
@@ -2168,10 +2188,11 @@ body.dark-mode .track-moon,
 
 .footer-bottom-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 16px;
+  text-align: center;
 }
 
 .footer-legal-links {
@@ -2288,6 +2309,16 @@ dialog.quote-dialog::backdrop {
    20. RESPONSIVIDADE & MEDIA QUERIES
    -------------------------------------------------------------------------- */
 @media (max-width: 1100px) {
+  .top-bar {
+    font-size: 0.74rem;
+  }
+  .top-info-list {
+    gap: 14px;
+  }
+  .top-quote-btn {
+    padding: 0 16px;
+    font-size: 0.78rem;
+  }
   .hero-yellow-card-inner {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
