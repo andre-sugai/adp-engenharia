@@ -1791,6 +1791,7 @@ progress.loading-spinner:indeterminate {
   padding: 24px;
   background-color: var(--color-white);
   color: var(--color-dark);
+  flex: 1;
 }
 
 .project-category {
