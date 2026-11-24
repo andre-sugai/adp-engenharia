@@ -2192,6 +2192,71 @@ progress.loading-spinner:indeterminate {
 }
 
 /* --------------------------------------------------------------------------
+   16. CLIENTES ATENDIDOS (LOGOS OFICIAIS)
+   -------------------------------------------------------------------------- */
+.clients-section {
+  padding-block: 96px;
+  background-color: var(--color-white);
+}
+
+.clients-grid {
+  list-style: none;
+  margin: 0;
+  padding: 16px 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-wrap: balance;
+  justify-content: center;
+  align-items: center;
+  column-gap: 28px;
+  row-gap: 44px;
+}
+
+.client-logo-item {
+  flex: 0 1 196px;
+  min-inline-size: 0;
+  display: grid;
+  place-items: center;
+  min-block-size: 92px;
+  padding: 6px 4px;
+}
+
+.client-logo-img {
+  max-inline-size: 100%;
+  max-block-size: 72px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.client-logo-img--square {
+  max-block-size: 82px;
+}
+
+.client-logo-img--badge {
+  max-block-size: 76px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.client-logo-img--dark-ink {
+  filter: brightness(0) opacity(0.88);
+}
+
+.client-logo-item:hover .client-logo-img {
+  transform: scale(1.06);
+}
+
+.clients-footnote {
+  margin-block-start: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
    17. BARRA DE PARCEIROS
    -------------------------------------------------------------------------- */
 .partners-bar-section {
@@ -2734,6 +2799,28 @@ dialog.quote-dialog::backdrop {
   .form-row-grid {
     grid-template-columns: 1fr;
   }
+  .clients-section {
+    padding-block: 64px;
+  }
+  .clients-grid {
+    column-gap: 20px;
+    row-gap: 28px;
+  }
+  .client-logo-item {
+    flex: 0 0 calc((100% - 20px) / 2);
+    min-block-size: 72px;
+    padding: 4px 6px;
+  }
+  .client-logo-img {
+    max-inline-size: 100%;
+    max-block-size: 56px;
+  }
+  .client-logo-img--square {
+    max-block-size: 68px;
+  }
+  .client-logo-img--badge {
+    max-block-size: 62px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -2805,10 +2892,12 @@ body,
 .excavator-cta-box,
 .projects-carousel-section,
 .testimonials-section,
+.clients-section,
 .blog-section,
 .partners-bar-section,
 .recognized-card,
 .project-card,
+.clients-grid,
 .blog-card,
 .testimonial-white-side,
 .quote-dialog,
@@ -3071,6 +3160,27 @@ body,
 
 .dark-mode .excavator-icon-img path[stroke="#111"] {
   stroke: #e5e7eb;
+}
+
+/* Clientes Atendidos */
+.dark-mode .clients-section {
+  background-color: #0c0d10;
+}
+
+.dark-mode .clients-section .section-title {
+  color: #ffffff;
+}
+
+.dark-mode .clients-section .section-desc,
+.dark-mode .clients-footnote {
+  color: #9ca3af;
+}
+
+.dark-mode .clients-grid {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 44px) clamp(18px, 3.5vw, 36px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* Barra de Parceiros */
