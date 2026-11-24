@@ -327,6 +327,377 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // -------------------------------------------------------------------------
+  // 9. VÍDEO EM LOOP NO HERO (LOADING PARA CONEXÃO LENTA & CONTROLE DE PAUSA)
+  // -------------------------------------------------------------------------
+  const heroSection = document.getElementById('inicio');
+  const heroVideo = document.getElementById('heroBgVideo');
+  const heroLoader = document.getElementById('heroVideoLoader');
+  const heroToggleBtn = document.getElementById('heroVideoToggle');
+
+  if (heroVideo && heroSection) {
+    // Garante execução sem áudio em qualquer navegador
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+
+    let loaderTimer = null;
+    let userPaused = false;
+    let isBuffering = false;
+
+    const showLoader = () => {
+      if (!heroLoader || userPaused) return;
+      heroLoader.hidden = false;
+      heroLoader.classList.add('is-loading');
+    };
+
+    const hideLoader = () => {
+      if (loaderTimer) {
+        clearTimeout(loaderTimer);
+        loaderTimer = null;
+      }
+      if (!heroLoader) return;
+      heroLoader.classList.remove('is-loading');
+      heroLoader.hidden = true;
+    };
+
+    const scheduleLoader = (delay = 350) => {
+      if (!heroLoader || userPaused) return;
+      if (loaderTimer) clearTimeout(loaderTimer);
+      loaderTimer = setTimeout(() => {
+        if (!userPaused && (heroVideo.readyState < 3 || isBuffering)) {
+          showLoader();
+        }
+      }, delay);
+    };
+
+    const setToggleState = (isPaused) => {
+      heroSection.classList.toggle('hero-motion-paused', isPaused);
+      if (!heroToggleBtn) return;
+      heroToggleBtn.classList.toggle('is-paused', isPaused);
+      const label = isPaused ? 'Reproduzir vídeo de fundo' : 'Pausar vídeo de fundo';
+      heroToggleBtn.setAttribute('aria-label', label);
+      heroToggleBtn.setAttribute('title', label);
+    };
+
+    const markVideoReady = () => {
+      isBuffering = false;
+      heroVideo.classList.add('is-ready');
+      hideLoader();
+    };
+
+    heroVideo.addEventListener('canplay', markVideoReady);
+    heroVideo.addEventListener('playing', () => {
+      markVideoReady();
+      if (!userPaused) setToggleState(false);
+    });
+
+    heroVideo.addEventListener('waiting', () => {
+      if (!userPaused && !heroVideo.paused) {
+        isBuffering = true;
+        scheduleLoader(350);
+      }
+    });
+
+    heroVideo.addEventListener('stalled', () => {
+      if (!userPaused && !heroVideo.paused && heroVideo.readyState < 3) {
+        isBuffering = true;
+        scheduleLoader(350);
+      }
+    });
+
+    const handleVideoError = () => {
+      isBuffering = false;
+      hideLoader();
+      heroVideo.classList.remove('is-ready');
+      if (heroToggleBtn) {
+        heroToggleBtn.hidden = true;
+      }
+    };
+
+    heroVideo.addEventListener('error', handleVideoError);
+    const sources = heroVideo.querySelectorAll('source');
+    if (sources.length > 0) {
+      sources[sources.length - 1].addEventListener('error', handleVideoError);
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+
+    if (prefersReducedMotion || saveData) {
+      userPaused = true;
+      heroVideo.pause();
+      setToggleState(true);
+      hideLoader();
+    } else {
+      if (heroVideo.readyState >= 3) {
+        markVideoReady();
+      } else {
+        scheduleLoader(350);
+      }
+
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          userPaused = true;
+          setToggleState(true);
+          hideLoader();
+        });
+      }
+    }
+
+    if (heroToggleBtn) {
+      heroToggleBtn.addEventListener('click', () => {
+        if (heroVideo.paused) {
+          userPaused = false;
+          setToggleState(false);
+          if (heroVideo.readyState < 3) {
+            scheduleLoader(350);
+          }
+          const resumePromise = heroVideo.play();
+          if (resumePromise && typeof resumePromise.catch === 'function') {
+            resumePromise.catch(() => {
+              userPaused = true;
+              setToggleState(true);
+              hideLoader();
+            });
+          }
+        } else {
+          userPaused = true;
+          heroVideo.pause();
+          hideLoader();
+          setToggleState(true);
+        }
+      });
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // 10. VÍDEO PANORÂMICO TIMELAPSE (LAZY LOAD, LOADING COMPLETO & CONTROLE DE PAUSA)
+  // -------------------------------------------------------------------------
+  const panoramicBanner = document.getElementById('obra-timelapse');
+  const panoramicVideo = document.getElementById('panoramicTimelapseVideo');
+  const panoramicLoader = document.getElementById('panoramicVideoLoader');
+  const panoramicToggleBtn = document.getElementById('panoramicVideoToggle');
+
+  if (panoramicBanner && panoramicVideo) {
+    panoramicVideo.muted = true;
+    panoramicVideo.defaultMuted = true;
+
+    let panoramicLoaderTimer = null;
+    let panoramicUserPaused = false;
+    let panoramicIsBuffering = false;
+    let panoramicFullyLoaded = false;
+    let panoramicLoadTriggered = false;
+
+    const showPanoramicLoader = () => {
+      if (!panoramicLoader || panoramicUserPaused) return;
+      panoramicLoader.hidden = false;
+      panoramicLoader.classList.add('is-loading');
+    };
+
+    const hidePanoramicLoader = () => {
+      if (panoramicLoaderTimer) {
+        clearTimeout(panoramicLoaderTimer);
+        panoramicLoaderTimer = null;
+      }
+      if (!panoramicLoader) return;
+      panoramicLoader.classList.remove('is-loading');
+      panoramicLoader.hidden = true;
+    };
+
+    const schedulePanoramicLoader = (delay = 350) => {
+      if (!panoramicLoader || panoramicUserPaused) return;
+      if (panoramicLoaderTimer) clearTimeout(panoramicLoaderTimer);
+      panoramicLoaderTimer = setTimeout(() => {
+        if (!panoramicUserPaused && (panoramicVideo.readyState < 4 || panoramicIsBuffering)) {
+          showPanoramicLoader();
+        }
+      }, delay);
+    };
+
+    const setPanoramicToggleState = (isPaused) => {
+      panoramicBanner.classList.toggle('panoramic-motion-paused', isPaused);
+      if (!panoramicToggleBtn) return;
+      panoramicToggleBtn.classList.toggle('is-paused', isPaused);
+      const label = isPaused ? 'Reproduzir timelapse da obra' : 'Pausar timelapse da obra';
+      panoramicToggleBtn.setAttribute('aria-label', label);
+      panoramicToggleBtn.setAttribute('title', label);
+    };
+
+    const isBufferComplete = () => {
+      if (panoramicVideo.readyState >= 4) return true;
+      if (panoramicVideo.duration > 0 && panoramicVideo.buffered && panoramicVideo.buffered.length > 0) {
+        const bufferedEnd = panoramicVideo.buffered.end(panoramicVideo.buffered.length - 1);
+        return bufferedEnd >= panoramicVideo.duration - 0.3;
+      }
+      return false;
+    };
+
+    const finishPanoramicLoad = () => {
+      panoramicFullyLoaded = true;
+      panoramicIsBuffering = false;
+      panoramicVideo.classList.add('is-ready');
+      hidePanoramicLoader();
+
+      if (!panoramicUserPaused) {
+        setPanoramicToggleState(false);
+        const playPromise = panoramicVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            panoramicUserPaused = true;
+            setPanoramicToggleState(true);
+            hidePanoramicLoader();
+          });
+        }
+      }
+    };
+
+    const startPanoramicLoad = () => {
+      if (panoramicUserPaused) return;
+      if (panoramicVideo.dataset.poster) {
+        panoramicVideo.poster = panoramicVideo.dataset.poster;
+        delete panoramicVideo.dataset.poster;
+      }
+      if (!panoramicLoadTriggered) {
+        panoramicLoadTriggered = true;
+        panoramicVideo.preload = 'auto';
+        if (panoramicVideo.readyState === 0) {
+          panoramicVideo.load();
+        }
+      }
+      if (isBufferComplete()) {
+        finishPanoramicLoad();
+      } else {
+        showPanoramicLoader();
+      }
+    };
+
+    panoramicVideo.addEventListener('canplaythrough', finishPanoramicLoad);
+
+    panoramicVideo.addEventListener('playing', () => {
+      panoramicIsBuffering = false;
+      if (!panoramicFullyLoaded && (isBufferComplete() || panoramicVideo.currentTime > 0.35)) {
+        panoramicFullyLoaded = true;
+        panoramicVideo.classList.add('is-ready');
+      }
+      if (panoramicFullyLoaded) {
+        hidePanoramicLoader();
+      }
+      if (!panoramicUserPaused) {
+        setPanoramicToggleState(false);
+      }
+    });
+
+    panoramicVideo.addEventListener('timeupdate', () => {
+      if (!panoramicFullyLoaded && (isBufferComplete() || panoramicVideo.currentTime > 0.35)) {
+        panoramicFullyLoaded = true;
+        panoramicVideo.classList.add('is-ready');
+        hidePanoramicLoader();
+      }
+    });
+
+    panoramicVideo.addEventListener('waiting', () => {
+      if (!panoramicUserPaused && !panoramicVideo.paused) {
+        panoramicIsBuffering = true;
+        if (!panoramicFullyLoaded) {
+          showPanoramicLoader();
+        } else {
+          schedulePanoramicLoader(350);
+        }
+      }
+    });
+
+    panoramicVideo.addEventListener('stalled', () => {
+      if (!panoramicUserPaused && !panoramicVideo.paused && panoramicVideo.readyState < 4) {
+        panoramicIsBuffering = true;
+        schedulePanoramicLoader(350);
+      }
+    });
+
+    const handlePanoramicError = () => {
+      panoramicIsBuffering = false;
+      hidePanoramicLoader();
+      panoramicVideo.classList.remove('is-ready');
+      if (panoramicToggleBtn) {
+        panoramicToggleBtn.hidden = true;
+      }
+    };
+
+    panoramicVideo.addEventListener('error', handlePanoramicError);
+    const panoramicSources = panoramicVideo.querySelectorAll('source');
+    if (panoramicSources.length > 0) {
+      panoramicSources[panoramicSources.length - 1].addEventListener('error', handlePanoramicError);
+    }
+
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+    const supportsLazyMedia = Object.hasOwn(HTMLMediaElement.prototype, 'loading');
+
+    const applyReducedMotionPause = () => {
+      panoramicUserPaused = true;
+      panoramicVideo.removeAttribute('autoplay');
+      panoramicVideo.pause();
+      hidePanoramicLoader();
+      setPanoramicToggleState(true);
+    };
+
+    if (reducedMotionQuery.matches || saveData) {
+      applyReducedMotionPause();
+    } else {
+      if (!supportsLazyMedia && panoramicVideo.hasAttribute('poster')) {
+        panoramicVideo.dataset.poster = panoramicVideo.getAttribute('poster');
+        panoramicVideo.removeAttribute('poster');
+      }
+
+      if ('IntersectionObserver' in window) {
+        const panoramicObserver = new IntersectionObserver(
+          (entries, observer) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              startPanoramicLoad();
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '250px 0px' }
+        );
+        panoramicObserver.observe(panoramicBanner);
+      } else {
+        startPanoramicLoad();
+      }
+    }
+
+    reducedMotionQuery.addEventListener('change', (event) => {
+      if (event.matches) {
+        applyReducedMotionPause();
+      }
+    });
+
+    if (panoramicToggleBtn) {
+      panoramicToggleBtn.addEventListener('click', () => {
+        if (panoramicVideo.paused) {
+          panoramicUserPaused = false;
+          setPanoramicToggleState(false);
+          startPanoramicLoad();
+          if (panoramicFullyLoaded || panoramicVideo.readyState >= 3) {
+            const resumePromise = panoramicVideo.play();
+            if (resumePromise && typeof resumePromise.catch === 'function') {
+              resumePromise.catch(() => {
+                panoramicUserPaused = true;
+                setPanoramicToggleState(true);
+                hidePanoramicLoader();
+              });
+            }
+          }
+        } else {
+          panoramicUserPaused = true;
+          panoramicVideo.pause();
+          hidePanoramicLoader();
+          setPanoramicToggleState(true);
+        }
+      });
+    }
+  }
 });
 
 
