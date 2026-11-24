@@ -633,6 +633,10 @@ body.dark-mode .track-moon,
   display: none;
 }
 
+.video-loader-text {
+  font-variant-numeric: tabular-nums;
+}
+
 @property --arc-start {
   syntax: "<angle>";
   inherits: false;

@@ -31,7 +31,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Estilos Customizados -->
-  <link rel="stylesheet" href="css/styles.css?v=2.8">
+  <link rel="stylesheet" href="css/styles.css?v=2.9">
   
   <!-- Favicon SVG -->
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon_adp.svg">
@@ -171,16 +171,15 @@
              fetchpriority="high">
         <video class="hero-bg-video"
                id="heroBgVideo"
-               autoplay
                muted
                loop
                playsinline
-               preload="auto"
-               poster="assets/img/hero-votuporanga-shopping.webp"
-               aria-hidden="true">
-          <source src="assets/video/hero-votuporanga-shopping.webm" type="video/webm">
-          <source src="assets/video/hero-votuporanga-shopping.mp4" type="video/mp4">
-        </video>
+               width="1280"
+               height="720"
+               preload="none"
+               data-mp4="assets/video/hero-votuporanga-shopping.mp4"
+               data-webm="assets/video/hero-votuporanga-shopping.webm"
+               aria-hidden="true"></video>
         <div class="hero-overlay"></div>
       </div>
 
@@ -188,13 +187,14 @@
       <div class="hero-media-controls">
         <div class="hero-video-loader" id="heroVideoLoader" role="status" aria-live="polite" hidden>
           <progress aria-label="Carregando vídeo de destaque" class="loading-spinner"></progress>
-          <span>Carregando vídeo...</span>
+          <span class="video-loader-text">Carregando vídeo...</span>
         </div>
         <button type="button"
                 class="hero-video-toggle"
                 id="heroVideoToggle"
                 aria-label="Pausar vídeo de fundo"
-                title="Pausar vídeo de fundo">
+                title="Pausar vídeo de fundo"
+                hidden>
           <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <rect x="6" y="5" width="4" height="14" rx="1"></rect>
             <rect x="14" y="5" width="4" height="14" rx="1"></rect>
@@ -630,24 +630,21 @@
       <video class="panoramic-video"
              id="panoramicTimelapseVideo"
              loading="lazy"
-             autoplay
              muted
              loop
              playsinline
              width="1280"
              height="720"
-             poster="assets/img/timelapse-mercado-poster.webp"
              preload="none"
-             aria-hidden="true">
-        <source src="assets/video/timelapse-mercado-gastronomico.webm" type="video/webm">
-        <source src="assets/video/timelapse-mercado-gastronomico.mp4" type="video/mp4">
-      </video>
+             data-mp4="assets/video/timelapse-mercado-gastronomico.mp4"
+             data-webm="assets/video/timelapse-mercado-gastronomico.webm"
+             aria-hidden="true"></video>
       <div class="panoramic-overlay"></div>
 
       <!-- Loading exibido até o vídeo completo estar pronto para reprodução contínua -->
-      <div class="panoramic-video-loader is-loading" id="panoramicVideoLoader" role="status" aria-live="polite">
+      <div class="panoramic-video-loader" id="panoramicVideoLoader" role="status" aria-live="polite" hidden>
         <progress aria-label="Carregando vídeo timelapse da obra" class="loading-spinner"></progress>
-        <span>Carregando vídeo da obra...</span>
+        <span class="video-loader-text">Carregando vídeo da obra...</span>
       </div>
 
       <!-- Controle discreto de pausa/play (WCAG 2.2.2 — sem aria-pressed) -->
@@ -655,7 +652,8 @@
               class="hero-video-toggle panoramic-video-toggle"
               id="panoramicVideoToggle"
               aria-label="Pausar timelapse da obra"
-              title="Pausar timelapse da obra">
+              title="Pausar timelapse da obra"
+              hidden>
         <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <rect x="6" y="5" width="4" height="14" rx="1"></rect>
           <rect x="14" y="5" width="4" height="14" rx="1"></rect>
@@ -1285,6 +1283,6 @@
   </div>
 
   <!-- Script Principal -->
-  <script src="js/main.js?v=2.6"></script>
+  <script src="js/main.js?v=2.7"></script>
 </body>
 </html>

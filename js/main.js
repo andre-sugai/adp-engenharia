@@ -329,26 +329,138 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // 9. VÍDEO EM LOOP NO HERO (LOADING PARA CONEXÃO LENTA & CONTROLE DE PAUSA)
+  // 9. VÍDEOS COM CARREGAMENTO 100% COMPLETO ANTES DA TROCA (HERO E TIMELAPSE)
   // -------------------------------------------------------------------------
-  const heroSection = document.getElementById('inicio');
-  const heroVideo = document.getElementById('heroBgVideo');
-  const heroLoader = document.getElementById('heroVideoLoader');
-  const heroToggleBtn = document.getElementById('heroVideoToggle');
+  const getCandidateVideoUrls = (video) => {
+    const mp4Url = video.dataset.mp4;
+    const webmUrl = video.dataset.webm;
+    const mp4Support = video.canPlayType('video/mp4; codecs="avc1.64001f"') || video.canPlayType('video/mp4');
+    const webmSupport = video.canPlayType('video/webm; codecs="vp9"') || video.canPlayType('video/webm');
 
-  if (heroVideo && heroSection) {
-    // Garante execução sem áudio em qualquer navegador
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
+    const candidates = [];
+    if (mp4Url && mp4Support === 'probably') {
+      candidates.push({ url: mp4Url, type: 'video/mp4' });
+      if (webmUrl && webmSupport) candidates.push({ url: webmUrl, type: 'video/webm' });
+    } else if (webmUrl && webmSupport) {
+      candidates.push({ url: webmUrl, type: 'video/webm' });
+      if (mp4Url && mp4Support) candidates.push({ url: mp4Url, type: 'video/mp4' });
+    } else if (mp4Url) {
+      candidates.push({ url: mp4Url, type: 'video/mp4' });
+      if (webmUrl) candidates.push({ url: webmUrl, type: 'video/webm' });
+    } else if (webmUrl) {
+      candidates.push({ url: webmUrl, type: 'video/webm' });
+    }
+    return candidates;
+  };
 
+  const fetchFullVideoBlobUrl = async (url, expectedType, onProgress) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ao carregar ${url}`);
+    }
+
+    const totalHeader = response.headers.get('content-length');
+    const total = totalHeader ? Number(totalHeader) : 0;
+
+    let blob;
+    if (response.body && Number.isFinite(total) && total > 0) {
+      const reader = response.body.getReader();
+      const chunks = [];
+      let loaded = 0;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) {
+          chunks.push(value);
+          loaded += value.byteLength;
+          const percent = Math.min(100, Math.round((loaded / total) * 100));
+          onProgress(percent);
+        }
+      }
+      blob = new Blob(chunks, { type: expectedType || response.headers.get('content-type') || 'video/mp4' });
+    } else {
+      const rawBlob = await response.blob();
+      blob = (!rawBlob.type || rawBlob.type === 'application/octet-stream')
+        ? new Blob([rawBlob], { type: expectedType || 'video/mp4' })
+        : rawBlob;
+      onProgress(100);
+    }
+
+    return URL.createObjectURL(blob);
+  };
+
+  const attachVideoAndWaitReady = (video, srcUrl, isBlob) => {
+    return new Promise((resolve, reject) => {
+      const readyEvent = isBlob ? 'loadeddata' : 'canplaythrough';
+      const cleanup = () => {
+        video.removeEventListener(readyEvent, onReady);
+        video.removeEventListener('error', onError);
+      };
+      const onReady = () => {
+        if (!isBlob && video.readyState < 4) return;
+        cleanup();
+        resolve();
+      };
+      const onError = () => {
+        cleanup();
+        reject(new Error('Falha ao decodificar vídeo'));
+      };
+
+      video.addEventListener(readyEvent, onReady);
+      video.addEventListener('error', onError);
+      video.muted = true;
+      video.defaultMuted = true;
+      video.loop = true;
+      video.preload = 'auto';
+      video.src = srcUrl;
+      video.load();
+
+      if (isBlob && video.readyState >= 2) {
+        cleanup();
+        resolve();
+      } else if (!isBlob && video.readyState >= 4) {
+        cleanup();
+        resolve();
+      }
+    });
+  };
+
+  const initFullLoadVideoSwap = ({
+    container,
+    image,
+    video,
+    loader,
+    toggleBtn,
+    pausedClass,
+    baseLoaderText,
+    pauseLabel,
+    playLabel,
+    loaderDelayMs = 0,
+    deferUntilIntersect = false
+  }) => {
+    if (!container || !video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+
+    const loaderTextEl = loader ? (loader.querySelector('.video-loader-text') || loader.querySelector('span')) : null;
     let loaderTimer = null;
-    let userPaused = false;
-    let isBuffering = false;
+    let isLoading = false;
+    let isVideoLoaded = false;
+    let isSwapped = false;
+    let isPausedByUser = false;
+
+    const setLoaderProgress = (percent) => {
+      if (!loaderTextEl) return;
+      loaderTextEl.textContent = percent !== null ? `${baseLoaderText} ${percent}%` : baseLoaderText;
+    };
 
     const showLoader = () => {
-      if (!heroLoader || userPaused) return;
-      heroLoader.hidden = false;
-      heroLoader.classList.add('is-loading');
+      if (!loader || isPausedByUser || isSwapped) return;
+      loader.hidden = false;
+      loader.classList.add('is-loading');
     };
 
     const hideLoader = () => {
@@ -356,348 +468,195 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(loaderTimer);
         loaderTimer = null;
       }
-      if (!heroLoader) return;
-      heroLoader.classList.remove('is-loading');
-      heroLoader.hidden = true;
+      if (!loader) return;
+      loader.classList.remove('is-loading');
+      loader.hidden = true;
     };
 
-    const scheduleLoader = (delay = 350) => {
-      if (!heroLoader || userPaused) return;
+    const scheduleLoader = () => {
+      if (!loader || isPausedByUser || isSwapped) return;
+      if (loaderDelayMs <= 0) {
+        showLoader();
+        return;
+      }
       if (loaderTimer) clearTimeout(loaderTimer);
       loaderTimer = setTimeout(() => {
-        if (!userPaused && (heroVideo.readyState < 3 || isBuffering)) {
+        if (isLoading && !isPausedByUser && !isSwapped) {
           showLoader();
         }
-      }, delay);
+      }, loaderDelayMs);
     };
 
     const setToggleState = (isPaused) => {
-      heroSection.classList.toggle('hero-motion-paused', isPaused);
-      if (!heroToggleBtn) return;
-      heroToggleBtn.classList.toggle('is-paused', isPaused);
-      const label = isPaused ? 'Reproduzir vídeo de fundo' : 'Pausar vídeo de fundo';
-      heroToggleBtn.setAttribute('aria-label', label);
-      heroToggleBtn.setAttribute('title', label);
+      container.classList.toggle(pausedClass, isPaused);
+      if (!toggleBtn) return;
+      toggleBtn.classList.toggle('is-paused', isPaused);
+      const label = isPaused ? playLabel : pauseLabel;
+      toggleBtn.setAttribute('aria-label', label);
+      toggleBtn.setAttribute('title', label);
     };
 
-    const markVideoReady = () => {
-      isBuffering = false;
-      heroVideo.classList.add('is-ready');
-      hideLoader();
-    };
-
-    heroVideo.addEventListener('canplay', markVideoReady);
-    heroVideo.addEventListener('playing', () => {
-      markVideoReady();
-      if (!userPaused) setToggleState(false);
-    });
-
-    heroVideo.addEventListener('waiting', () => {
-      if (!userPaused && !heroVideo.paused) {
-        isBuffering = true;
-        scheduleLoader(350);
+    const revealVideoAndPlay = async () => {
+      if (isPausedByUser) {
+        hideLoader();
+        setToggleState(true);
+        if (toggleBtn) toggleBtn.hidden = false;
+        return;
       }
-    });
 
-    heroVideo.addEventListener('stalled', () => {
-      if (!userPaused && !heroVideo.paused && heroVideo.readyState < 3) {
-        isBuffering = true;
-        scheduleLoader(350);
-      }
-    });
-
-    const handleVideoError = () => {
-      isBuffering = false;
-      hideLoader();
-      heroVideo.classList.remove('is-ready');
-      if (heroToggleBtn) {
-        heroToggleBtn.hidden = true;
+      try {
+        await video.play();
+        isSwapped = true;
+        video.classList.add('is-ready');
+        hideLoader();
+        setToggleState(false);
+        if (toggleBtn) toggleBtn.hidden = false;
+      } catch (e) {
+        // Autoplay bloqueado: mantém imagem visível até o usuário clicar em Play
+        isPausedByUser = true;
+        hideLoader();
+        setToggleState(true);
+        if (toggleBtn) toggleBtn.hidden = false;
       }
     };
 
-    heroVideo.addEventListener('error', handleVideoError);
-    const sources = heroVideo.querySelectorAll('source');
-    if (sources.length > 0) {
-      sources[sources.length - 1].addEventListener('error', handleVideoError);
-    }
+    const startDownloadAndSwap = async () => {
+      if (isLoading || isVideoLoaded || isPausedByUser) return;
+      const candidates = getCandidateVideoUrls(video);
+      if (candidates.length === 0) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = Boolean(navigator.connection && navigator.connection.saveData);
+      isLoading = true;
+      setLoaderProgress(null);
+      scheduleLoader();
 
-    if (prefersReducedMotion || saveData) {
-      userPaused = true;
-      heroVideo.pause();
-      setToggleState(true);
-      hideLoader();
-    } else {
-      if (heroVideo.readyState >= 3) {
-        markVideoReady();
-      } else {
-        scheduleLoader(350);
-      }
-
-      const playPromise = heroVideo.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          userPaused = true;
-          setToggleState(true);
-          hideLoader();
-        });
-      }
-    }
-
-    if (heroToggleBtn) {
-      heroToggleBtn.addEventListener('click', () => {
-        if (heroVideo.paused) {
-          userPaused = false;
-          setToggleState(false);
-          if (heroVideo.readyState < 3) {
-            scheduleLoader(350);
-          }
-          const resumePromise = heroVideo.play();
-          if (resumePromise && typeof resumePromise.catch === 'function') {
-            resumePromise.catch(() => {
-              userPaused = true;
-              setToggleState(true);
-              hideLoader();
-            });
-          }
-        } else {
-          userPaused = true;
-          heroVideo.pause();
-          hideLoader();
-          setToggleState(true);
-        }
-      });
-    }
-  }
-
-  // -------------------------------------------------------------------------
-  // 10. VÍDEO PANORÂMICO TIMELAPSE (LAZY LOAD, LOADING COMPLETO & CONTROLE DE PAUSA)
-  // -------------------------------------------------------------------------
-  const panoramicBanner = document.getElementById('obra-timelapse');
-  const panoramicVideo = document.getElementById('panoramicTimelapseVideo');
-  const panoramicLoader = document.getElementById('panoramicVideoLoader');
-  const panoramicToggleBtn = document.getElementById('panoramicVideoToggle');
-
-  if (panoramicBanner && panoramicVideo) {
-    panoramicVideo.muted = true;
-    panoramicVideo.defaultMuted = true;
-
-    let panoramicLoaderTimer = null;
-    let panoramicUserPaused = false;
-    let panoramicIsBuffering = false;
-    let panoramicFullyLoaded = false;
-    let panoramicLoadTriggered = false;
-
-    const showPanoramicLoader = () => {
-      if (!panoramicLoader || panoramicUserPaused) return;
-      panoramicLoader.hidden = false;
-      panoramicLoader.classList.add('is-loading');
-    };
-
-    const hidePanoramicLoader = () => {
-      if (panoramicLoaderTimer) {
-        clearTimeout(panoramicLoaderTimer);
-        panoramicLoaderTimer = null;
-      }
-      if (!panoramicLoader) return;
-      panoramicLoader.classList.remove('is-loading');
-      panoramicLoader.hidden = true;
-    };
-
-    const schedulePanoramicLoader = (delay = 350) => {
-      if (!panoramicLoader || panoramicUserPaused) return;
-      if (panoramicLoaderTimer) clearTimeout(panoramicLoaderTimer);
-      panoramicLoaderTimer = setTimeout(() => {
-        if (!panoramicUserPaused && (panoramicVideo.readyState < 4 || panoramicIsBuffering)) {
-          showPanoramicLoader();
-        }
-      }, delay);
-    };
-
-    const setPanoramicToggleState = (isPaused) => {
-      panoramicBanner.classList.toggle('panoramic-motion-paused', isPaused);
-      if (!panoramicToggleBtn) return;
-      panoramicToggleBtn.classList.toggle('is-paused', isPaused);
-      const label = isPaused ? 'Reproduzir timelapse da obra' : 'Pausar timelapse da obra';
-      panoramicToggleBtn.setAttribute('aria-label', label);
-      panoramicToggleBtn.setAttribute('title', label);
-    };
-
-    const isBufferComplete = () => {
-      if (panoramicVideo.readyState >= 4) return true;
-      if (panoramicVideo.duration > 0 && panoramicVideo.buffered && panoramicVideo.buffered.length > 0) {
-        const bufferedEnd = panoramicVideo.buffered.end(panoramicVideo.buffered.length - 1);
-        return bufferedEnd >= panoramicVideo.duration - 0.3;
-      }
-      return false;
-    };
-
-    const finishPanoramicLoad = () => {
-      panoramicFullyLoaded = true;
-      panoramicIsBuffering = false;
-      panoramicVideo.classList.add('is-ready');
-      hidePanoramicLoader();
-
-      if (!panoramicUserPaused) {
-        setPanoramicToggleState(false);
-        const playPromise = panoramicVideo.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-          playPromise.catch(() => {
-            panoramicUserPaused = true;
-            setPanoramicToggleState(true);
-            hidePanoramicLoader();
+      for (const candidate of candidates) {
+        if (isPausedByUser) break;
+        let objectUrl = null;
+        try {
+          objectUrl = await fetchFullVideoBlobUrl(candidate.url, candidate.type, (pct) => {
+            setLoaderProgress(pct);
           });
+          await attachVideoAndWaitReady(video, objectUrl, true);
+          isVideoLoaded = true;
+          isLoading = false;
+          await revealVideoAndPlay();
+          return;
+        } catch (fetchErr) {
+          if (objectUrl) {
+            URL.revokeObjectURL(objectUrl);
+            objectUrl = null;
+          }
+          // Fallback para abertura direta via file:// quando fetch não é suportado
+          if (window.location.protocol === 'file:') {
+            try {
+              await attachVideoAndWaitReady(video, candidate.url, false);
+              isVideoLoaded = true;
+              isLoading = false;
+              await revealVideoAndPlay();
+              return;
+            } catch (directErr) {
+              // Tenta o próximo candidato
+            }
+          }
         }
       }
-    };
 
-    const startPanoramicLoad = () => {
-      if (panoramicUserPaused) return;
-      if (panoramicVideo.dataset.poster) {
-        panoramicVideo.poster = panoramicVideo.dataset.poster;
-        delete panoramicVideo.dataset.poster;
-      }
-      if (!panoramicLoadTriggered) {
-        panoramicLoadTriggered = true;
-        panoramicVideo.preload = 'auto';
-        if (panoramicVideo.readyState === 0) {
-          panoramicVideo.load();
-        }
-      }
-      if (isBufferComplete()) {
-        finishPanoramicLoad();
-      } else {
-        showPanoramicLoader();
+      isLoading = false;
+      hideLoader();
+      video.classList.remove('is-ready');
+      if (!isVideoLoaded && toggleBtn) {
+        toggleBtn.hidden = true;
       }
     };
-
-    panoramicVideo.addEventListener('canplaythrough', finishPanoramicLoad);
-
-    panoramicVideo.addEventListener('playing', () => {
-      panoramicIsBuffering = false;
-      if (!panoramicFullyLoaded && (isBufferComplete() || panoramicVideo.currentTime > 0.35)) {
-        panoramicFullyLoaded = true;
-        panoramicVideo.classList.add('is-ready');
-      }
-      if (panoramicFullyLoaded) {
-        hidePanoramicLoader();
-      }
-      if (!panoramicUserPaused) {
-        setPanoramicToggleState(false);
-      }
-    });
-
-    panoramicVideo.addEventListener('timeupdate', () => {
-      if (!panoramicFullyLoaded && (isBufferComplete() || panoramicVideo.currentTime > 0.35)) {
-        panoramicFullyLoaded = true;
-        panoramicVideo.classList.add('is-ready');
-        hidePanoramicLoader();
-      }
-    });
-
-    panoramicVideo.addEventListener('waiting', () => {
-      if (!panoramicUserPaused && !panoramicVideo.paused) {
-        panoramicIsBuffering = true;
-        if (!panoramicFullyLoaded) {
-          showPanoramicLoader();
-        } else {
-          schedulePanoramicLoader(350);
-        }
-      }
-    });
-
-    panoramicVideo.addEventListener('stalled', () => {
-      if (!panoramicUserPaused && !panoramicVideo.paused && panoramicVideo.readyState < 4) {
-        panoramicIsBuffering = true;
-        schedulePanoramicLoader(350);
-      }
-    });
-
-    const handlePanoramicError = () => {
-      panoramicIsBuffering = false;
-      hidePanoramicLoader();
-      panoramicVideo.classList.remove('is-ready');
-      if (panoramicToggleBtn) {
-        panoramicToggleBtn.hidden = true;
-      }
-    };
-
-    panoramicVideo.addEventListener('error', handlePanoramicError);
-    const panoramicSources = panoramicVideo.querySelectorAll('source');
-    if (panoramicSources.length > 0) {
-      panoramicSources[panoramicSources.length - 1].addEventListener('error', handlePanoramicError);
-    }
 
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const saveData = Boolean(navigator.connection && navigator.connection.saveData);
-    const supportsLazyMedia = Object.hasOwn(HTMLMediaElement.prototype, 'loading');
 
-    const applyReducedMotionPause = () => {
-      panoramicUserPaused = true;
-      panoramicVideo.removeAttribute('autoplay');
-      panoramicVideo.pause();
-      hidePanoramicLoader();
-      setPanoramicToggleState(true);
+    const pauseForReducedMotion = () => {
+      isPausedByUser = true;
+      video.pause();
+      hideLoader();
+      setToggleState(true);
+      if (toggleBtn) toggleBtn.hidden = false;
     };
 
     if (reducedMotionQuery.matches || saveData) {
-      applyReducedMotionPause();
+      pauseForReducedMotion();
+    } else if (deferUntilIntersect && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            startDownloadAndSwap();
+            obs.unobserve(entry.target);
+          }
+        },
+        { rootMargin: '250px 0px' }
+      );
+      observer.observe(container);
+    } else if (image && !image.complete) {
+      const onImageDone = () => startDownloadAndSwap();
+      image.addEventListener('load', onImageDone, { once: true });
+      image.addEventListener('error', onImageDone, { once: true });
     } else {
-      if (!supportsLazyMedia && panoramicVideo.hasAttribute('poster')) {
-        panoramicVideo.dataset.poster = panoramicVideo.getAttribute('poster');
-        panoramicVideo.removeAttribute('poster');
-      }
-
-      if ('IntersectionObserver' in window) {
-        const panoramicObserver = new IntersectionObserver(
-          (entries, observer) => {
-            for (const entry of entries) {
-              if (!entry.isIntersecting) continue;
-              startPanoramicLoad();
-              observer.unobserve(entry.target);
-            }
-          },
-          { rootMargin: '250px 0px' }
-        );
-        panoramicObserver.observe(panoramicBanner);
-      } else {
-        startPanoramicLoad();
-      }
+      startDownloadAndSwap();
     }
 
     reducedMotionQuery.addEventListener('change', (event) => {
       if (event.matches) {
-        applyReducedMotionPause();
+        pauseForReducedMotion();
       }
     });
 
-    if (panoramicToggleBtn) {
-      panoramicToggleBtn.addEventListener('click', () => {
-        if (panoramicVideo.paused) {
-          panoramicUserPaused = false;
-          setPanoramicToggleState(false);
-          startPanoramicLoad();
-          if (panoramicFullyLoaded || panoramicVideo.readyState >= 3) {
-            const resumePromise = panoramicVideo.play();
-            if (resumePromise && typeof resumePromise.catch === 'function') {
-              resumePromise.catch(() => {
-                panoramicUserPaused = true;
-                setPanoramicToggleState(true);
-                hidePanoramicLoader();
-              });
-            }
-          }
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', async () => {
+        if (!isVideoLoaded) {
+          isPausedByUser = false;
+          setToggleState(false);
+          startDownloadAndSwap();
+          return;
+        }
+
+        if (video.paused) {
+          isPausedByUser = false;
+          await revealVideoAndPlay();
         } else {
-          panoramicUserPaused = true;
-          panoramicVideo.pause();
-          hidePanoramicLoader();
-          setPanoramicToggleState(true);
+          isPausedByUser = true;
+          video.pause();
+          hideLoader();
+          setToggleState(true);
         }
       });
     }
-  }
+  };
+
+  initFullLoadVideoSwap({
+    container: document.getElementById('inicio'),
+    image: document.querySelector('#inicio .hero-bg-image'),
+    video: document.getElementById('heroBgVideo'),
+    loader: document.getElementById('heroVideoLoader'),
+    toggleBtn: document.getElementById('heroVideoToggle'),
+    pausedClass: 'hero-motion-paused',
+    baseLoaderText: 'Carregando vídeo...',
+    pauseLabel: 'Pausar vídeo de fundo',
+    playLabel: 'Reproduzir vídeo de fundo',
+    loaderDelayMs: 300,
+    deferUntilIntersect: false
+  });
+
+  initFullLoadVideoSwap({
+    container: document.getElementById('obra-timelapse'),
+    image: document.querySelector('#obra-timelapse .panoramic-img'),
+    video: document.getElementById('panoramicTimelapseVideo'),
+    loader: document.getElementById('panoramicVideoLoader'),
+    toggleBtn: document.getElementById('panoramicVideoToggle'),
+    pausedClass: 'panoramic-motion-paused',
+    baseLoaderText: 'Carregando vídeo da obra...',
+    pauseLabel: 'Pausar timelapse da obra',
+    playLabel: 'Reproduzir timelapse da obra',
+    loaderDelayMs: 0,
+    deferUntilIntersect: true
+  });
 });
 
 
