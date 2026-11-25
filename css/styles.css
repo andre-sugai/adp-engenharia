@@ -2221,6 +2221,20 @@ progress.loading-spinner:indeterminate {
   padding: 6px 4px;
 }
 
+.client-logo-link {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  border-radius: var(--radius-sm);
+}
+
+.client-logo-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 6px;
+}
+
 .client-logo-img {
   max-inline-size: 100%;
   max-block-size: 72px;
@@ -2245,7 +2259,8 @@ progress.loading-spinner:indeterminate {
   filter: brightness(0) opacity(0.88);
 }
 
-.client-logo-item:hover .client-logo-img {
+.client-logo-link:hover .client-logo-img,
+.client-logo-link:focus-visible .client-logo-img {
   transform: scale(1.06);
 }
 
